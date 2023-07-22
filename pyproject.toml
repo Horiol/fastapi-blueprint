@@ -17,7 +17,15 @@ httpx = "^0.24.1"
 pytest = "^7.4.0"
 pytest-sugar = "^0.9.7"
 pytest-cov = "^4.1.0"
+prospector = "^1.10.2"
+pre-commit = "^3.3.3"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line_length = 120
+
+[tool.isort]
+profile = "black"

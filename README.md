@@ -30,3 +30,10 @@ poetry run pytest --cov=src --cov-context=test --cov-branch --cov-report xml --c
 ```
 poetry run uvicorn src.main:app
 ```
+
+## Features to be included
+
+- [ ] Docker compose structure
+- [ ] DB connection
+- [ ] Alembic migrations
+- [ ] Celery async tasks

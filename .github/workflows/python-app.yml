@@ -1,0 +1,38 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install
+    - name: Test with pytest
+      run: |
+        poetry run pytest --cov=src --cov-context=test --cov-branch --cov-report xml --cov-report term
+    - name: Upload coverage
+      run: |
+        curl https://deepsource.io/cli | sh
+        export DEEPSOURCE_DSN=https://9199fe50ee6a4f679b78958ad226d62e@app.deepsource.com
+        ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml

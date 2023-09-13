@@ -1,11 +1,16 @@
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
 
 app = FastAPI()
 
 
 @app.get("/healthz")
-async def healthz():
+async def healthz() -> dict[str, str]:
+    return {"status": "OK"}
+
+
+@app.get("/another_endpoint")
+async def another_endpoint() -> dict[str, str]:
     return {"status": "OK"}
 
 

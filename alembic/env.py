@@ -3,9 +3,9 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from sqlalchemy_utils import create_database, database_exists
+from sqlmodel import SQLModel
 
-from src.models.base import Base
-from src.models import *  # noqa
+from src.books.models import *  # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,7 +21,8 @@ if config.attributes.get("configure_logger", True):
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = Base.metadata
+# target_metadata = Base.metadata
+target_metadata = SQLModel.metadata
 
 SYNC_SQLALCHEMY_DATABASE_URI = "sqlite:///./database.db"
 

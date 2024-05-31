@@ -16,7 +16,7 @@ poetry run pre-commit install --hook-type commit-msg --hook-type prepare-commit-
 ## Run in development
 
 ```
-poetry run python src/main.py
+poetry run uvicorn src.main:app --reload
 ```
 
 ## Execute test suite

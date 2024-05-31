@@ -1,0 +1,5 @@
+[report] 
+skip_empty = True
+
+[html]
+show_contexts = True

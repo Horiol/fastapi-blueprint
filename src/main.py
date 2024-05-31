@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from books.router import router as books_router
+from src.books.router import router as books_router
 
 app = FastAPI()
 

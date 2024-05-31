@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from database import get_session
+from src.database import get_session
 
 from . import models, service
 

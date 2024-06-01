@@ -1,7 +1,7 @@
 import uvicorn
-from routes.graphql import graphql_app
 from fastapi import FastAPI
 
+from src.graphql import graphql_app
 from src.books.router import router as books_router
 from src.admin import init_admin_page
 

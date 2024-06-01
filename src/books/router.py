@@ -1,17 +1,18 @@
 from fastapi import APIRouter, Depends
 
-from database import get_session
+from src.database import get_session
 
-from . import models, service
+from . import service
+from .models import Book, BookBase
 
 router = APIRouter(prefix="/books", tags=["Books"])
 
 
-@router.get("/", response_model=list[models.Book])
+@router.get("/", response_model=list[Book])
 def get(db=Depends(get_session)):
     return service.get(db)
 
 
-@router.post("/", response_model=models.Book)
-def post(payload: models.BookBase, db=Depends(get_session)):
+@router.post("/", response_model=Book)
+def post(payload: BookBase, db=Depends(get_session)):
     return service.create(db, payload)

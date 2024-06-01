@@ -3,3 +3,4 @@ max-line-length: 120
 pylint:
   disable:
     - import-error
+    - relative-beyond-top-level

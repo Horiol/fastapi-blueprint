@@ -3,7 +3,7 @@ from . import models
 
 
 def get(db):
-    return db.execute(select(models.Book)).all()
+    return db.scalars(select(models.Book)).all()
 
 
 def create(db, payload: models.BookBase):

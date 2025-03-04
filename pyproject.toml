@@ -6,6 +6,7 @@ authors = ["Oriol Vall <oriol.vall.hdez@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = []
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"

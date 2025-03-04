@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
+from src.graphql import graphql_app
 from src.books.router import router as books_router
 from src.admin import init_admin_page
 
@@ -12,6 +13,7 @@ async def healthz() -> dict[str, str]:
     return {"status": "OK"}
 
 
+app.add_route("/graphql", graphql_app)
 app.include_router(books_router)
 
 init_admin_page(app)

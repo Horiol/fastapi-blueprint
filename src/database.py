@@ -19,4 +19,12 @@ def get_session():
         db.close()
 
 
+def get_db_graphql():
+    db = session()
+    try:
+        return db
+    finally:
+        db.close()
+
+
 Base = declarative_base()

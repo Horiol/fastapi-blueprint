@@ -1,6 +1,8 @@
 # from src.books.models import Book
 import strawberry
 from strawberry.asgi import GraphQL
+from src.database import get_db_graphql
+from src.books.service import get as get_books
 
 
 @strawberry.type
@@ -11,7 +13,10 @@ class Book:
 
 @strawberry.type
 class Query:
-    books: list[Book]
+    @strawberry.field
+    async def books(self) -> list[Book]:
+        db = get_db_graphql()
+        return get_books(db)
 
 
 schema = strawberry.Schema(query=Query)

@@ -1,4 +1,3 @@
-# from src.books.models import Book
 import strawberry
 from strawberry.asgi import GraphQL
 from src.database import get_db_graphql

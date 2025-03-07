@@ -32,6 +32,7 @@ jobs:
         poetry install
     - name: Test with pytest
       run: |
+        poetry run alembic upgrade head
         poetry run pytest --cov=src --cov-context=test --cov-branch --cov-report xml --cov-report term
     - name: Report results to DeepSource
       run: |

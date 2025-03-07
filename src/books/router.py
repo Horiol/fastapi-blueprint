@@ -16,3 +16,8 @@ def get(db=Depends(get_session)):
 @router.post("/", response_model=Book)
 def post(payload: BookBase, db=Depends(get_session)):
     return service.create(db, payload)
+
+
+@router.delete("/{book_id}", response_model=Book | None)
+def delete(book_id: int, db=Depends(get_session)):
+    return service.delete(db, book_id)

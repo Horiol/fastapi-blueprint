@@ -6,6 +6,7 @@ from src.books.service import get as get_books
 
 @strawberry.type
 class Book:
+    id: int
     title: str
     author: str
 

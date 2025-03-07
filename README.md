@@ -10,7 +10,7 @@
 
 ```
 poetry install
-poetry run pre-commit install --hook-type commit-msg --hook-type prepare-commit-msg --hook-type pre-commit --hook-type pre-push
+poetry run pre-commit install
 ```
 
 ## Run in development
@@ -31,9 +31,37 @@ poetry run pytest --cov=src --cov-context=test --cov-branch --cov-report xml --c
 poetry run uvicorn src.main:app
 ```
 
+## Migrations
+
+### Create a new migration
+
+```
+poetry run alembic revision --autogenerate -m "message"
+```
+
+### Apply migrations
+
+```
+poetry run alembic upgrade head
+```
+
 ## Features to be included
 
 - [ ] Docker compose structure
-- [ ] DB connection
-- [ ] Alembic migrations
+- [x] Poetry
+- [x] REST API
+- [x] DB connection
+- [x] Alembic migrations
+- [x] GraphQL API
 - [ ] Celery async tasks
+- [ ] Admin interface
+- [x] Tests
+- [x] Coverage
+- [ ] CI/CD pipeline
+- [ ] Monitoring
+- [ ] Logging
+- [ ] Error handling
+- [ ] Rate limiting
+- [ ] Caching
+- [ ] Email sending
+- [ ] File storage

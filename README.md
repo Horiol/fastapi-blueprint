@@ -54,7 +54,7 @@ poetry run alembic upgrade head
 - [x] Alembic migrations
 - [x] GraphQL API
 - [ ] Celery async tasks
-- [ ] Admin interface
+- [x] Admin interface
 - [x] Tests
 - [x] Coverage
 - [ ] CI/CD pipeline

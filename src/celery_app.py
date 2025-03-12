@@ -1,9 +1,13 @@
 from celery import Celery
 from typing import Any, Dict
+from src.constants import REDIS_CELERY_DB
 
 # Configure Celery application
 celery_app = Celery(
-    "fastapi_celery", broker="redis://localhost:6379/0", backend="redis://localhost:6379/0", include=["src.celery_app"]
+    "fastapi_celery",
+    broker=f"redis://localhost:6379/{REDIS_CELERY_DB}",
+    backend=f"redis://localhost:6379/{REDIS_CELERY_DB}",
+    include=["src.celery_app"],
 )
 
 # Optional configuration settings

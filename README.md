@@ -25,11 +25,14 @@ poetry run uvicorn src.main:app --reload
 poetry run pytest --cov=src --cov-context=test --cov-branch --cov-report xml --cov-report term
 ```
 
-## Execute as production
+## Execute as docker compose
 
 ```
-poetry run uvicorn src.main:app
+docker compose build
+docker compose up
 ```
+
+Using this commands you will start multiple docker containers and will serve the API at port 8080 and the flower (celery monitoring page) at port 5555
 
 ## Migrations
 
@@ -47,21 +50,19 @@ poetry run alembic upgrade head
 
 ## Features to be included
 
-- [ ] Docker compose structure
+- [x] Docker compose structure
 - [x] Poetry
 - [x] REST API
 - [x] DB connection
 - [x] Alembic migrations
 - [x] GraphQL API
-- [ ] Celery async tasks
-- [ ] Admin interface
+- [x] Celery async tasks
+- [x] Admin interface
 - [x] Tests
 - [x] Coverage
-- [ ] CI/CD pipeline
-- [ ] Monitoring
+- [ ] Caching
 - [ ] Logging
+- [ ] Monitoring
 - [ ] Error handling
 - [ ] Rate limiting
-- [ ] Caching
 - [ ] Email sending
-- [ ] File storage

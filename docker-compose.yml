@@ -38,15 +38,27 @@ services:
     command: celery -A src.worker worker --loglevel=info
     restart: on-failure
 
-  taskiq-worker:
+  faststream-worker:
     build:
-      context: taskiq
+      context: faststream
       dockerfile: Dockerfile
     volumes:
-      - ./taskiq:/app
+      - ./faststream:/app
     depends_on:
       - redis
-    command: taskiq worker src.worker:broker
+    command: faststream run src.worker:app
+    restart: on-failure
+
+  faststream-scheduler:
+    build:
+      context: faststream
+      dockerfile: Dockerfile
+    volumes:
+      - ./faststream:/app
+    depends_on:
+      - redis
+      - faststream-worker
+    command: taskiq scheduler src.scheduler:scheduler
     restart: on-failure
 
   flower:

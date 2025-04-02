@@ -14,6 +14,8 @@ pydantic = "^2.0"
 redis = "^5.2.1"
 taskiq = "^0.11.16"
 taskiq-redis = "^1.0.4"
+taskiq-faststream = "^0.2.0"
+faststream = {extras = ["cli"], version = "^0.5.37"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"

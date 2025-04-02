@@ -29,5 +29,5 @@ RUN chown -R appuser:appuser /app
 USER appuser
 
 # Run celery worker with flower
-CMD ["taskiq", "worker", "src.worker:broker"]
+CMD ["faststream", "run", "src.worker:broker"]
 

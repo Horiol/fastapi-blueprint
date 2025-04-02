@@ -12,7 +12,9 @@ def test_books():
 
 def test_books_post_and_delete():
     # First create a book to delete
-    response = client.post("/books", json={"title": "Test Book", "author": "Test Author"})
+    response = client.post(
+        "/books", json={"title": "Test Book", "author": "Test Author"}
+    )
     assert response.status_code == 200
     assert response.json()["title"] == "Test Book"
     assert response.json()["author"] == "Test Author"

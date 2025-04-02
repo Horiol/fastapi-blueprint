@@ -12,11 +12,15 @@ RUN pip install poetry
 RUN poetry self add poetry-plugin-export
 
 # Copy application code
-COPY . .
+COPY pyproject.toml poetry.lock ./
+
 
 # Install dependencies
 RUN poetry export -f requirements.txt --output requirements.txt
 RUN pip install -r requirements.txt 
+
+# Copy the rest of the application code
+COPY ./src ./src
 
 # Change ownership to non-root user
 RUN chown -R appuser:appuser /app

@@ -10,7 +10,8 @@ taskiq_broker = BrokerWrapper(broker)
 
 taskiq_broker.task(
     message={"user": "John", "user_id": 1},
-    channel="in-channel",
+    # channel="in-channel",
+    stream="test-stream",
     schedule=[
         {
             "cron": "* * * * *",

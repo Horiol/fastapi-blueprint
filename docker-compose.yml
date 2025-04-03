@@ -3,12 +3,12 @@ version: "3.8"
 services:
   api:
     build:
-      context: .
+      context: api
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ./:/app
+      - ./api:/app
     environment:
       - REDIS_URL=redis://redis:6379/0
       - CELERY_BROKER_URL=redis://redis:6379/0
@@ -23,36 +23,60 @@ services:
       timeout: 10s
       retries: 3
 
-  worker:
+  celery-worker:
     build:
-      context: .
+      context: celery
       dockerfile: Dockerfile
     volumes:
-      - ./:/app
+      - ./celery:/app
     environment:
       - REDIS_URL=redis://redis:6379/0
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     depends_on:
       - redis
-    command: celery -A src.celery_app worker --loglevel=info
+    command: celery -A src.worker worker --loglevel=info
+    restart: on-failure
+
+  faststream-worker:
+    build:
+      context: faststream
+      dockerfile: Dockerfile
+    volumes:
+      - ./faststream:/app
+    depends_on:
+      - redis
+    command: faststream run src.worker:app
+    restart: on-failure
+
+  faststream-scheduler:
+    build:
+      context: faststream
+      dockerfile: Dockerfile
+    volumes:
+      - ./faststream:/app
+    depends_on:
+      - redis
+      - faststream-worker
+    command: taskiq scheduler src.scheduler:scheduler
     restart: on-failure
 
   flower:
     build:
-      context: .
+      context: celery
       dockerfile: Dockerfile
     ports:
       - "5555:5555"
     volumes:
-      - ./:/app
+      - ./celery:/app
     environment:
       - REDIS_URL=redis://redis:6379/0
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     depends_on:
       - redis
-    command: celery -A src.celery_app flower --loglevel=info
+      - celery-worker
+    command: celery -A src.worker flower --loglevel=info
     restart: on-failure
 
   redis:

@@ -4,3 +4,4 @@ pylint:
   disable:
     - import-error
     - relative-beyond-top-level
+    - django-not-available

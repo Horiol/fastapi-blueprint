@@ -1,5 +1,6 @@
 # Use Python 3.11 slim as the base image
 FROM python:3.11-slim
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 # Set working directory
 WORKDIR /app
@@ -7,17 +8,11 @@ WORKDIR /app
 # Create a non-root user
 RUN groupadd -r appuser && useradd -r -g appuser appuser
 
-# Install poetry
-RUN pip install poetry
-RUN poetry self add poetry-plugin-export
-
 # Copy application code
-COPY pyproject.toml poetry.lock ./
-
+COPY pyproject.toml uv.lock ./
 
 # Install dependencies
-RUN poetry export -f requirements.txt --output requirements.txt
-RUN pip install -r requirements.txt 
+RUN uv sync
 
 # Copy the rest of the application code
 COPY ./src ./src
